@@ -6,7 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
+
 
     String v1,v2,v3;
 
@@ -29,67 +30,142 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init_listener() {
+
+
        btn1.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               String x = btn1.getText().toString();
-               monitor.setText(x);
-               if(v1.equals("")){
-                   v1 = x;
-               }else
-                   v3 = x;
+              String output = monitor.getText().toString();
+              monitor.setText(output + btn1.getText().toString());
            }
        });
 
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String x = btn2.getText().toString();
-                monitor.setText(x);
-                if(v1.equals("")){
-                    v1 = x;
-                }else
-                    v3 = x;
+                String output = monitor.getText().toString();
+                monitor.setText(output + btn2.getText().toString());
             }
         });
 
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String x = btn3.getText().toString();
-                monitor.setText(x);
-                if(v1.equals("")){
-                    v1 = x;
-                }else
-                    v3 = x;
+                String output = monitor.getText().toString();
+                monitor.setText(output + btn3.getText().toString());
             }
         });
+
+       btn0.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               String output = monitor.getText().toString();
+               monitor.setText(output + btn0.getText().toString());
+           }
+       });
+
+       btn4.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               String output = monitor.getText().toString();
+               monitor.setText(output + btn4.getText().toString());
+           }
+       });
+
+       btn5.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               String output = monitor.getText().toString();
+               monitor.setText(output + btn5.getText().toString());
+           }
+       });
+
+      btn6.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              String output = monitor.getText().toString();
+              monitor.setText(output + btn6.getText().toString());
+          }
+      });
+
+        btn7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String output = monitor.getText().toString();
+                monitor.setText(output + btn7.getText().toString());
+            }
+        });
+
+        btn8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String output = monitor.getText().toString();
+                monitor.setText(output + btn8.getText().toString());
+            }
+        });
+
+        btn9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String output = monitor.getText().toString();
+                monitor.setText(output + btn9.getText().toString());
+            }
+        });
+
+        btndecimal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String output = monitor.getText().toString();
+                monitor.setText(output + btndecimal.getText().toString());
+            }
+        });
+
+        btnpercent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String output = monitor.getText().toString();
+                monitor.setText(output + btnpercent.getText().toString());
+            }
+        });
+
+        btncls.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String output = monitor.getText().toString();
+                StringBuilder cut = new StringBuilder(output);
+                int stringlen = output.length();
+
+                if(stringlen > 0){
+                    cut.deleteCharAt(stringlen - 1);
+                    monitor.setText(cut.toString());
+                }
+            }
+        });
+
+
 
         btnplus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String x = btnplus.getText().toString();
-                monitor.setText(x);
-                v2 = x;
+                String output = monitor.getText().toString();
+                monitor.setText(output + btnplus.getText().toString());
             }
         });
 
         btnminus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String x = btnminus.getText().toString();
-                monitor.setText(x);
-                v2 = x;
 
+                String output = monitor.getText().toString();
+                monitor.setText(output + btnminus.getText().toString());
             }
         });
 
         btndiv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String x = btndiv.getText().toString();
-                monitor.setText(x);
-                v2 = x;
+                String output = monitor.getText().toString();
+                monitor.setText(output + btndiv.getText().toString());
 
             }
         });
@@ -97,9 +173,8 @@ public class MainActivity extends AppCompatActivity {
         btnmul.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String x = btnmul.getText().toString();
-                monitor.setText(x);
-                v2 = x;
+                String output = monitor.getText().toString();
+                monitor.setText(output + btnmul.getText().toString());
 
             }
         });
@@ -107,45 +182,57 @@ public class MainActivity extends AppCompatActivity {
         btneql.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String x = btn1.getText().toString();
-                monitor.setText("");
-
-                int fst = Integer.parseInt(v1);
-                int sec = Integer.parseInt(v3);
-
-
+                String process = monitor.getText().toString();
+                char operator = ' ';
+                String operand_one = "";
+                String operand_two = "";
+                boolean operfound = false;
 
 
-                switch (v2){
-                    case "+":
-                        int res = fst+sec;
-                        String res_str = Integer.toString(res);
-                        monitor.setText(res_str);
-                        break;
+                for(char x : process.toCharArray()){
 
-                    case "-":
-                        int res_minus = fst-sec;
-                        String res_str_minus = Integer.toString(res_minus);
-                        monitor.setText(res_str_minus);
-                        break;
+                    if(!operfound && (Character.isDigit(x) || (operand_one.length() == 0) || x == '.')){
+                        operand_one += x;
+                    }
+                    else if(operfound && (Character.isDigit(x) || (operand_one.length() == 0) || x == '.')){
+                        operand_two += x;
+                    }
 
-                    case "*":
-                        int res_mul = fst*sec;
-                        String res_str_mul = Integer.toString(res_mul);
-                        monitor.setText(res_str_mul);
-                        break;
-
-                    case "/":
-                        int res_div = fst/sec;
-                        String res_str_div = Integer.toString(res_div);
-                        monitor.setText(res_str_div);
-                        break;
-
-                        default:
-                            break;
+                    else if(x == '+' || x == '-' || x == '/' || x == '*' || x == '%'){
+                        operator = x;
+                        operfound = true;
+                    }
                 }
 
-                init_variables();
+                try{
+
+                    double a = Double.parseDouble(operand_one);
+                    double b = Double.parseDouble(operand_two);
+
+                    switch (operator){
+                        case '+':
+                            a = a + b;
+                            break;
+                        case '-':
+                            a = a - b;
+                            break;
+                        case '*':
+                            a = a * b;
+                            break;
+                        case '/':
+                            a = a / b;
+                            break;
+                        case '%':
+                            a = (a / 100) * b;
+                            break;
+                            default:
+                                break;
+                    }
+
+                    monitor.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    monitor.setText("" + a);
+
+                }catch (Exception e){}
 
             }
         });
@@ -153,16 +240,13 @@ public class MainActivity extends AppCompatActivity {
         btnclear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String x = btnclear.getText().toString();
                 monitor.setText("");
             }
         });
     }
 
     private void init_variables() {
-        v1 = "";
-        v2 = "";
-        v3 = "";
+
     }
 
     private void init_views() {
@@ -186,5 +270,6 @@ public class MainActivity extends AppCompatActivity {
         btncls = (Button)findViewById(R.id.btn_X);
         btnpercent = (Button)findViewById(R.id.btn_percentage);
         btnclear = (Button)findViewById(R.id.btn_Clear);
+
     }
 }
